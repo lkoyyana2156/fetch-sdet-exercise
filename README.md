@@ -1,6 +1,11 @@
 # fetch-sdet-exercise
 
-I have used Divide and Conquer algorithm to find the fake gold bar. Please find the detailed instructions on how to run the test below
+I have used Divide and Conquer algorithm to find the fake gold bar. I have added three tests:
+1. verifyFakeGoldBarIsFound - This test finds the fake gold bar, clicks on it, verifies if right alert message is displayed and prints the message, Weighings to console.
+2. verifyAlertMessageForInvalidInput - This test inputs same numbers on both side of the scale and verifies if invalid input alert message is displayed.
+3. verifyAlertMessageForIncorrectFakeBar - This test finds the fake gold bar and then clicks on wrong number to verify the Oops! Try again alert message.
+
+Please find the detailed instructions on how to run the test below.
 
 ## Prerequisites
 

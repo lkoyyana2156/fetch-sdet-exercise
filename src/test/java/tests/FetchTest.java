@@ -2,6 +2,7 @@ package tests;
 
 import org.junit.Assert;
 import org.junit.Test;
+import org.openqa.selenium.WebElement;
 
 import java.util.*;
 
@@ -17,9 +18,9 @@ public class FetchTest extends BaseTest {
     private List<Integer> threeRandomSquares = new ArrayList<>();
 
     private int findTheFakeBarSet(String latestResult) {
-        if (latestResult.contains("=")) {
+        if (latestResult.equals("=")) {
             return 2;
-        } else if (latestResult.contains("<")) {
+        } else if (latestResult.equals("<")) {
             return 0;
         } else {
             return 1;
@@ -41,8 +42,8 @@ public class FetchTest extends BaseTest {
         weighScalePage.enterValuesIntoRightScale(threeRandomSquares, list.get(1));
 
         weighScalePage.clickWeigh();
-        int fakeSetIndex = findTheFakeBarSet(weighScalePage.getLatestWeighResult());
-
+        weighScalePage.waitForAllResults(1);
+        int fakeSetIndex = findTheFakeBarSet(weighScalePage.getResultOfWeigh());
         weighScalePage.clickReset();
 
         weighScalePage.enterValueIntoLeftScale(random.nextInt(9),list.get(fakeSetIndex).get(0).toString());
@@ -50,7 +51,7 @@ public class FetchTest extends BaseTest {
 
         weighScalePage.clickWeigh();
         weighScalePage.waitForAllResults(2);
-        int fakeBarIndex = findTheFakeBarSet(weighScalePage.getLatestWeighResult());
+        int fakeBarIndex = findTheFakeBarSet(weighScalePage.getResultOfWeigh());
         return list.get(fakeSetIndex).get(fakeBarIndex);
     }
 
@@ -63,7 +64,12 @@ public class FetchTest extends BaseTest {
         String fakeBarId = "coin_"+findFakeBarId();
         weighScalePage.clickGoldBar(fakeBarId);
         Assert.assertEquals("Yay! You find it!", weighScalePage.getAlertText());
+        System.out.println("Alert Message is: "+ weighScalePage.getAlertText());
         weighScalePage.acceptAlert();
+        System.out.println("All the weighing are: ");
+        for(WebElement e : weighScalePage.getWeighResults()){
+            System.out.println(e.getText());
+        }
     }
 
     /**

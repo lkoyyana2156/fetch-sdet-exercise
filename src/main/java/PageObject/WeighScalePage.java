@@ -11,6 +11,7 @@ public class WeighScalePage {
     private final By weighButtonBy = By.id("weigh");
     private final By resultsBy = By.xpath(".//li");
     private final By resetButtonBy = By.xpath(".//button[@id='reset' and not(@disabled)]");
+    private final By resultButtonBy = By.xpath(".//button[@id='reset' and @disabled]");
     private By getWeighScaleMatrixBy(String id){
         return By.xpath(".//input[contains(@id,'"+id+"')]");
     }
@@ -54,15 +55,6 @@ public class WeighScalePage {
      */
     public List<WebElement> getWeighResults(){
         return waitUtils.waitForElements(resultsBy);
-    }
-
-    /**
-     * Get Latest Weigh result
-     * @return Latest weigh result as String
-     */
-    public String getLatestWeighResult(){
-        List<WebElement> results = getWeighResults();
-        return results.get(results.size()-1).getText();
     }
 
     /**
@@ -147,6 +139,14 @@ public class WeighScalePage {
      */
     public void enterValueIntoRightScale(int index, String value){
         getRightScaleMatrix().get(index).sendKeys(value);
+    }
+
+    /**
+     * Get result of the weigh
+     * @return Result as String
+     */
+    public String getResultOfWeigh(){
+        return waitUtils.waitForElement(resultButtonBy).getText();
     }
     //endregion
 }

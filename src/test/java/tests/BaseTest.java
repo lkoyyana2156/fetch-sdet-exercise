@@ -62,15 +62,8 @@ public class BaseTest {
         }
         finally {
             if (driver != null) {
-                driver.close();
+                driver.quit();
             }
-        }
-    }
-
-    @AfterClass
-    public static void tearDown(){
-        if(driver!=null){
-            driver.quit();
         }
     }
 }
