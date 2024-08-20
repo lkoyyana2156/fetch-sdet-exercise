@@ -12,7 +12,7 @@ public class WeighScalePage {
     private final By resultsBy = By.xpath(".//li");
     private final By resetButtonBy = By.xpath(".//button[@id='reset' and not(@disabled)]");
     private final By resultButtonBy = By.xpath(".//button[@id='reset' and @disabled]");
-    private By getWeighScaleMatrixBy(String id){
+    private By getWeighScaleBowlBy(String id){
         return By.xpath(".//input[contains(@id,'"+id+"')]");
     }
     private By getGoldBarBy(String id){
@@ -27,19 +27,19 @@ public class WeighScalePage {
 
     //region Page Actions
     /**
-     * Get Left Scale Matrix Squares
-     * @return List of all the matrix squares for left scale
+     * Get Left Bowl Grid Elements
+     * @return List of all the grid elements for Left Bowl
      */
-    public List<WebElement> getLeftScaleMatrix(){
-        return waitUtils.waitForElements(getWeighScaleMatrixBy("left"));
+    public List<WebElement> getLeftBowlGridElements(){
+        return waitUtils.waitForElements(getWeighScaleBowlBy("left"));
     }
 
     /**
-     * Get Right Scale Matrix Squares
-     * @return List of all the matrix squares for right scale
+     * Get Right Bowl Grid Elements
+     * @return List of all the grid elements for Right Bowl
      */
-    public List<WebElement> getRightScaleMatrix(){
-        return waitUtils.waitForElements(getWeighScaleMatrixBy("right"));
+    public List<WebElement> getRightBowlGridElements(){
+        return waitUtils.waitForElements(getWeighScaleBowlBy("right"));
     }
 
     /**
@@ -96,49 +96,49 @@ public class WeighScalePage {
     }
 
     /**
-     * Enter Values into Left weigh scale
-     * @param indices = List of Indices of the matrix to input values
-     * @param values  = List of Values to enter into matrix
+     * Enter Values into Left Bowl
+     * @param indices = List of Indices of the Left Bowl Grids to input values
+     * @param values  = List of Values to enter into Grids
      */
-    public void enterValuesIntoLeftScale(List<Integer> indices, List<Integer> values){
-        int square = 0;
+    public void enterValuesIntoLeftBowl(List<Integer> indices, List<Integer> values){
+        int count = 0;
 
         for(Integer s: values){
-            getLeftScaleMatrix().get(indices.get(square)).sendKeys(s.toString());
-            square++;
+            getLeftBowlGridElements().get(indices.get(count)).sendKeys(s.toString());
+            count++;
         }
     }
 
     /**
-     * Enter Values into Right weigh scale
-     * @param indices = List of Indices of the matrix to input values
-     * @param values  = List of Values to enter into matrix
+     * Enter Values into Right Bowl
+     * @param indices = List of Indices of the Right Bowl Grids to input values
+     * @param values  = List of Values to enter into Grids
      */
-    public void enterValuesIntoRightScale(List<Integer> indices, List<Integer> values){
-        int square = 0;
+    public void enterValuesIntoRightBowl(List<Integer> indices, List<Integer> values){
+        int count = 0;
 
         for(Integer s: values){
-            getRightScaleMatrix().get(indices.get(square)).sendKeys(s.toString());
-            square++;
+            getRightBowlGridElements().get(indices.get(count)).sendKeys(s.toString());
+            count++;
         }
     }
 
     /**
-     * Enter single value into the left weigh scale
-     * @param index = index of matrix to input value
-     * @param value = value to input into matrix
+     * Enter single value into the left bowl
+     * @param index = index of left bowl grid to input value
+     * @param value = value to input into grid
      */
-    public void enterValueIntoLeftScale(int index, String value){
-        getLeftScaleMatrix().get(index).sendKeys(value);
+    public void enterValueIntoLeftBowl(int index, String value){
+        getLeftBowlGridElements().get(index).sendKeys(value);
     }
 
     /**
-     * Enter single value into the right weigh scale
-     * @param index = index of matrix to input value
-     * @param value = value to input into matrix
+     * Enter single value into the right bowl
+     * @param index = index of right bowl grid to input value
+     * @param value = value to input into grid
      */
-    public void enterValueIntoRightScale(int index, String value){
-        getRightScaleMatrix().get(index).sendKeys(value);
+    public void enterValueIntoRightBowl(int index, String value){
+        getRightBowlGridElements().get(index).sendKeys(value);
     }
 
     /**

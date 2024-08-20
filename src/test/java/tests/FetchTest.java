@@ -9,8 +9,8 @@ import java.util.*;
 public class FetchTest extends BaseTest {
 
     private final Random random = new Random();
-    private final List<Integer> matrixBlocks = Arrays.asList(0,1,2,3,4,5,6,7,8);
-    private final List<List<Integer>> list = Arrays.asList(
+    private final List<Integer> bowlGrids = Arrays.asList(0,1,2,3,4,5,6,7,8);
+    private final List<List<Integer>> listOfGoldBars = Arrays.asList(
             Arrays.asList(0,1,2),
             Arrays.asList(3,4,5),
             Arrays.asList(6,7,8)
@@ -28,31 +28,31 @@ public class FetchTest extends BaseTest {
     }
 
     private List<Integer> getRandomListOfThreeIntegers(){
-        Collections.shuffle(matrixBlocks);
-        return matrixBlocks.subList(0,3);
+        Collections.shuffle(bowlGrids);
+        return bowlGrids.subList(0,3);
     }
 
     private int findFakeBarId(){
         threeRandomSquares = getRandomListOfThreeIntegers();
 
-        weighScalePage.enterValuesIntoLeftScale(threeRandomSquares, list.get(0));
+        weighScalePage.enterValuesIntoLeftBowl(threeRandomSquares, listOfGoldBars.get(0));
 
         threeRandomSquares = getRandomListOfThreeIntegers();
 
-        weighScalePage.enterValuesIntoRightScale(threeRandomSquares, list.get(1));
+        weighScalePage.enterValuesIntoRightBowl(threeRandomSquares, listOfGoldBars.get(1));
 
         weighScalePage.clickWeigh();
         weighScalePage.waitForAllResults(1);
         int fakeSetIndex = findTheFakeBarSet(weighScalePage.getResultOfWeigh());
         weighScalePage.clickReset();
 
-        weighScalePage.enterValueIntoLeftScale(random.nextInt(9),list.get(fakeSetIndex).get(0).toString());
-        weighScalePage.enterValueIntoRightScale(random.nextInt(9),list.get(fakeSetIndex).get(1).toString());
+        weighScalePage.enterValueIntoLeftBowl(random.nextInt(9), listOfGoldBars.get(fakeSetIndex).get(0).toString());
+        weighScalePage.enterValueIntoRightBowl(random.nextInt(9), listOfGoldBars.get(fakeSetIndex).get(1).toString());
 
         weighScalePage.clickWeigh();
         weighScalePage.waitForAllResults(2);
         int fakeBarIndex = findTheFakeBarSet(weighScalePage.getResultOfWeigh());
-        return list.get(fakeSetIndex).get(fakeBarIndex);
+        return listOfGoldBars.get(fakeSetIndex).get(fakeBarIndex);
     }
 
     /**
@@ -66,8 +66,10 @@ public class FetchTest extends BaseTest {
         Assert.assertEquals("Yay! You find it!", weighScalePage.getAlertText());
         System.out.println("Alert Message is: "+ weighScalePage.getAlertText());
         weighScalePage.acceptAlert();
+        List<WebElement> results = weighScalePage.getWeighResults();
+        System.out.println("Number of Weighings to find the fake bar is: "+ results.size());
         System.out.println("All the weighing are: ");
-        for(WebElement e : weighScalePage.getWeighResults()){
+        for(WebElement e : results){
             System.out.println(e.getText());
         }
     }
@@ -80,10 +82,10 @@ public class FetchTest extends BaseTest {
         waitUtils.navigateToUrl(Url);
 
         threeRandomSquares = getRandomListOfThreeIntegers();
-        weighScalePage.enterValuesIntoLeftScale(threeRandomSquares, list.get(0));
+        weighScalePage.enterValuesIntoLeftBowl(threeRandomSquares, listOfGoldBars.get(0));
 
         threeRandomSquares = getRandomListOfThreeIntegers();
-        weighScalePage.enterValuesIntoRightScale(threeRandomSquares, list.get(0));
+        weighScalePage.enterValuesIntoRightBowl(threeRandomSquares, listOfGoldBars.get(0));
 
         weighScalePage.clickWeigh();
         Assert.assertTrue(weighScalePage.getAlertText().contains("Inputs are invalid: Both sides have coin(s):"));
